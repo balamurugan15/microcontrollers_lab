@@ -1,0 +1,169 @@
+   1               		.file	"my_idea.c"
+   2               	__SREG__ = 0x3f
+   3               	__SP_H__ = 0x3e
+   4               	__SP_L__ = 0x3d
+   5               	__CCP__  = 0x34
+   6               	__tmp_reg__ = 0
+   7               	__zero_reg__ = 1
+   9               		.text
+  10               	.Ltext0:
+  69               	.global	main
+  71               	main:
+   1:my_idea.c     **** // ***********************************************************
+   2:my_idea.c     **** // Project:
+   3:my_idea.c     **** // Author:
+   4:my_idea.c     **** // Module description:
+   5:my_idea.c     **** // ***********************************************************
+   6:my_idea.c     **** 
+   7:my_idea.c     **** #include <avr\io.h>              // Most basic include files
+   8:my_idea.c     **** #include <avr\interrupt.h>       // Add the necessary ones
+   9:my_idea.c     **** #include <avr\signal.h>          // here
+  10:my_idea.c     **** 
+  11:my_idea.c     **** // Define here the global static variables
+  12:my_idea.c     **** //
+  13:my_idea.c     **** int My_global;
+  14:my_idea.c     **** 
+  15:my_idea.c     **** 
+  16:my_idea.c     **** // ***********************************************************
+  17:my_idea.c     **** // Main program
+  18:my_idea.c     **** //
+  19:my_idea.c     **** int main(void) {
+  72               	_SP_L__
+  73               		in r29,__SP_H__
+  74               	/* prologue: function */
+  75 0000 DF93      	/* frame size = 0 */
+  77 0004 CDB7      	.LM1:
+  78 0006 DEB7      		ldi r30,lo8(55)
+  79               		ldi r31,hi8(55)
+  80               		ldi r24,lo8(12)
+  20:my_idea.c     **** 
+  21:my_idea.c     ****    DDRB = 0x0C;
+  81               	ion */
+  82               	/* frame size = 0 */
+  84 000a F0E0      	.LM1:
+  85 000c 8CE0      		ldi r30,lo8(55)
+  86 000e 8083      		ldi r31,hi8(55)
+  22:my_idea.c     ****    PORTB = 0x03;
+  87               	/* prologue: function */
+  88               	/* frame size = 0 */
+  90 0012 F0E0      	.LM1:
+  91 0014 83E0      		ldi r30,lo8(55)
+  92 0016 8083      		ldi r31,hi8(55)
+  23:my_idea.c     ****    DDRC = 0x0F;
+  93               	/* prologue: function */
+  94               	/* frame size = 0 */
+  96 001a F0E0      	.LM1:
+  97 001c 8FE0      		ldi r30,lo8(55)
+  98 001e 8083      		ldi r31,hi8(55)
+  24:my_idea.c     ****    PORTC = 0xFF;
+  99               	/* prologue: function */
+ 100               	/* frame size = 0 */
+ 102 0022 F0E0      	.LM1:
+ 103 0024 8FEF      		ldi r30,lo8(55)
+ 104 0026 8083      		ldi r31,hi8(55)
+ 105               		ldi r24,lo8(12)
+  25:my_idea.c     **** 
+  26:my_idea.c     ****    while(1) {
+  27:my_idea.c     ****    		PORTB = 0x0B;
+ 106               	ion */
+ 107               	/* frame size = 0 */
+ 109 002a F0E0      	.LM1:
+ 110 002c 8BE0      		ldi r30,lo8(55)
+ 111 002e 8083      		ldi r31,hi8(55)
+  28:my_idea.c     ****    		if(!(PINB & 0x01))
+ 112               	/* prologue: function */
+ 113               	/* frame size = 0 */
+ 115 0032 F0E0      	.LM1:
+ 116 0034 8081      		ldi r30,lo8(55)
+ 117 0036 882F      		ldi r31,hi8(55)
+ 118 0038 90E0      		ldi r24,lo8(12)
+ 119 003a 8170      		st Z,r24
+ 121 003e 0097      	.LM2:
+ 122 0040 01F4      		ldi r30,lo8(56)
+  29:my_idea.c     ****    			PORTC = ~(0x01);
+ 123               	i r30,lo8(55)
+ 124               		ldi r31,hi8(55)
+ 125 0042 E5E3      		ldi r24,lo8(12)
+ 126 0044 F0E0      		st Z,r24
+ 128 0048 8083      	.LM2:
+ 129 004a 00C0      		ldi r30,lo8(56)
+ 130               		ldi r31,hi8(56)
+  30:my_idea.c     ****    		else if(!(PINB & 0x02))
+ 131               	 r31,hi8(55)
+ 132               		ldi r24,lo8(12)
+ 133 004c E6E3      		st Z,r24
+ 135 0050 8081      	.LM2:
+ 136 0052 882F      		ldi r30,lo8(56)
+ 137 0054 90E0      		ldi r31,hi8(56)
+ 138 0056 8270      		ldi r24,lo8(3)
+ 139 0058 9070      		st Z,r24
+ 141 005c 01F4      	.LM3:
+  31:my_idea.c     ****    			PORTC = ~(0x04);
+ 142               	BB1
+ 143               	.LM2:
+ 144 005e E5E3      		ldi r30,lo8(56)
+ 145 0060 F0E0      		ldi r31,hi8(56)
+ 146 0062 8BEF      		ldi r24,lo8(3)
+ 147 0064 8083      		st Z,r24
+  32:my_idea.c     ****    		
+  33:my_idea.c     ****    		PORTB = 0x07;
+ 149               	LM2-.LFBB1
+ 150               	.LM2:
+ 151 0066 E8E3      		ldi r30,lo8(56)
+ 152 0068 F0E0      		ldi r31,hi8(56)
+ 153 006a 87E0      		ldi r24,lo8(3)
+ 154 006c 8083      		st Z,r24
+  34:my_idea.c     ****    		if(!(PINB & 0x01))
+ 155               	)
+ 156               		st Z,r24
+ 158 0070 F0E0      	.LM2:
+ 159 0072 8081      		ldi r30,lo8(56)
+ 160 0074 882F      		ldi r31,hi8(56)
+ 161 0076 90E0      		ldi r24,lo8(3)
+ 162 0078 8170      		st Z,r24
+ 164 007c 0097      	.LM3:
+ 165 007e 01F4      		ldi r30,lo8(52)
+  35:my_idea.c     ****    			PORTC = ~(0x02);
+ 166               	,lo8(56)
+ 167               		ldi r31,hi8(56)
+ 168 0080 E5E3      		ldi r24,lo8(3)
+ 169 0082 F0E0      		st Z,r24
+ 171 0086 8083      	.LM3:
+ 172 0088 00C0      		ldi r30,lo8(52)
+ 173               		ldi r31,hi8(52)
+  36:my_idea.c     ****    		else if(!(PINB & 0x02))
+ 174               	hi8(56)
+ 175               		ldi r24,lo8(3)
+ 176 008a E6E3      		st Z,r24
+ 178 008e 8081      	.LM3:
+ 179 0090 882F      		ldi r30,lo8(52)
+ 180 0092 90E0      		ldi r31,hi8(52)
+ 181 0094 8270      		ldi r24,lo8(15)
+ 182 0096 9070      		st Z,r24
+ 184 009a 01F4      	.LM4:
+  37:my_idea.c     ****    			PORTC = ~(0x08);
+ 185               	3:
+ 186               		ldi r30,lo8(52)
+ 187 009c E5E3      		ldi r31,hi8(52)
+ 188 009e F0E0      		ldi r24,lo8(15)
+ 189 00a0 87EF      		st Z,r24
+ 191 00a4 00C0      	.LM4:
+ 192               		ldi r30,lo8(53)
+ 193               		ldi r31,hi8(53)
+ 194               		ldi r24,lo8(-1)
+ 195               		st Z,r24
+ 196               	.L6:
+ 198               	.LM5:
+DEFINED SYMBOLS
+                            *ABS*:00000000 my_idea.c
+D:\DOCUME~1\student\LOCALS~1\Temp/ccCsz0IV.s:2      *ABS*:0000003f __SREG__
+D:\DOCUME~1\student\LOCALS~1\Temp/ccCsz0IV.s:3      *ABS*:0000003e __SP_H__
+D:\DOCUME~1\student\LOCALS~1\Temp/ccCsz0IV.s:4      *ABS*:0000003d __SP_L__
+D:\DOCUME~1\student\LOCALS~1\Temp/ccCsz0IV.s:5      *ABS*:00000034 __CCP__
+D:\DOCUME~1\student\LOCALS~1\Temp/ccCsz0IV.s:6      *ABS*:00000000 __tmp_reg__
+D:\DOCUME~1\student\LOCALS~1\Temp/ccCsz0IV.s:7      *ABS*:00000001 __zero_reg__
+D:\DOCUME~1\student\LOCALS~1\Temp/ccCsz0IV.s:71     .text:00000000 main
+                            *COM*:00000002 My_global
+
+UNDEFINED SYMBOLS
+__do_clear_bss

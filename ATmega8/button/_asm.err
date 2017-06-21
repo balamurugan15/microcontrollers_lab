@@ -1,0 +1,17 @@
+Creating   'button.eep'
+Creating   'button.hex'
+Creating   'button.obj'
+Creating   'button.lis'
+Creating   'button.map'
+
+Assembling 'button.asm'
+Including  'C:\VMLAB\include\m8def.inc'
+
+Program memory usage:
+Code             :   33 words
+Constants (dw/db):    0 words
+Unused           :    7 words
+Total            :   40 words
+
+Assembly complete with no errors.
+Deleting   'button.eep'

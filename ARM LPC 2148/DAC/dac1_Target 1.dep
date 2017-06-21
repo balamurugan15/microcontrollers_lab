@@ -1,0 +1,5 @@
+Dependencies for Project 'dac1', Target 'Target 1': (DO NOT MODIFY !)
+F (.\Startup.s)(0x5086D3A6)(--cpu ARM7TDMI --pd "__EVAL SETA 1" -g --apcs=interwork -I D:\Keil\ARM\RV31\INC -I D:\Keil\ARM\CMSIS\Include -I D:\Keil\ARM\Inc\Philips --list "Startup.lst" --xref -o "Startup.o" --depend "Startup.d")
+F (.\dac_moreStep.c)(0x58CA2094)(-c --cpu ARM7TDMI -D__EVAL -g -O0 --apcs=interwork -I D:\Keil\ARM\RV31\INC -I D:\Keil\ARM\CMSIS\Include -I D:\Keil\ARM\Inc\Philips -o "dac_morestep.o" --omf_browse "dac_morestep.crf" --depend "dac_morestep.d")
+I (D:\Keil\ARM\Inc\Philips\LPC214X.h)(0x5086BE16)
+I (D:\Keil\ARM\ARMCC\bin\..\include\math.h)(0x50F98478)

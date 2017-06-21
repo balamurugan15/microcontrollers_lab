@@ -1,0 +1,136 @@
+   1               		.file	"my_idea.c"
+   2               	__SREG__ = 0x3f
+   3               	__SP_H__ = 0x3e
+   4               	__SP_L__ = 0x3d
+   5               	__CCP__  = 0x34
+   6               	__tmp_reg__ = 0
+   7               	__zero_reg__ = 1
+   9               		.text
+  10               	.Ltext0:
+  69               	.global	main
+  71               	main:
+   1:my_idea.c     **** // ***********************************************************
+   2:my_idea.c     **** // Project:
+   3:my_idea.c     **** // Author:
+   4:my_idea.c     **** // Module description:
+   5:my_idea.c     **** // ***********************************************************
+   6:my_idea.c     **** 
+   7:my_idea.c     **** #include <avr\io.h>              // Most basic include files
+   8:my_idea.c     **** #include <avr\interrupt.h>       // Add the necessary ones
+   9:my_idea.c     **** #include <avr\signal.h>          // here
+  10:my_idea.c     **** 
+  11:my_idea.c     **** // Define here the global static variables
+  12:my_idea.c     **** //
+  13:my_idea.c     **** int My_global;
+  14:my_idea.c     **** 
+  15:my_idea.c     **** 
+  16:my_idea.c     **** 
+  17:my_idea.c     **** 
+  18:my_idea.c     **** 
+  19:my_idea.c     **** // ***********************************************************
+  20:my_idea.c     **** // Main program
+  21:my_idea.c     **** //
+  22:my_idea.c     **** int main(void) {
+  72               	_SP_L__
+  73               		in r29,__SP_H__
+  74               	/* prologue: function */
+  75 0000 DF93      	/* frame size = 0 */
+  77 0004 CDB7      	.LM1:
+  78 0006 DEB7      		ldi r30,lo8(55)
+  79               		ldi r31,hi8(55)
+  80               		ldi r24,lo8(2)
+  23:my_idea.c     **** 
+  24:my_idea.c     ****    DDRB = 0x02;
+  81               	24,.LM1-.LFBB1
+  82               	.LM1:
+  83 0008 E7E3      		ldi r30,lo8(55)
+  84 000a F0E0      		ldi r31,hi8(55)
+  85 000c 82E0      		ldi r24,lo8(2)
+  86 000e 8083      		st Z,r24
+  25:my_idea.c     ****    DDRC = 0x01;
+  87               	BB1
+  88               	.LM1:
+  89 0010 E4E3      		ldi r30,lo8(55)
+  90 0012 F0E0      		ldi r31,hi8(55)
+  91 0014 81E0      		ldi r24,lo8(2)
+  92 0016 8083      		st Z,r24
+  26:my_idea.c     **** 	TCCR1A = (1<<COM1A1) | (1<<WGM11) | (1<<WGM10);
+  93               	BB1
+  94               	.LM1:
+  95 0018 EFE4      		ldi r30,lo8(55)
+  96 001a F0E0      		ldi r31,hi8(55)
+  97 001c 83E8      		ldi r24,lo8(2)
+  98 001e 8083      		st Z,r24
+  27:my_idea.c     **** 	OCR1AH = 0x01;
+  99               	BB1
+ 100               	.LM1:
+ 101 0020 EBE4      		ldi r30,lo8(55)
+ 102 0022 F0E0      		ldi r31,hi8(55)
+ 103 0024 81E0      		ldi r24,lo8(2)
+ 104 0026 8083      		st Z,r24
+  28:my_idea.c     **** 	OCR1AL = 0xFF;
+ 105               	BB1
+ 106               	.LM1:
+ 107 0028 EAE4      		ldi r30,lo8(55)
+ 108 002a F0E0      		ldi r31,hi8(55)
+ 109 002c 8FEF      		ldi r24,lo8(2)
+ 110 002e 8083      		st Z,r24
+  29:my_idea.c     **** 	TCCR1B = (1<<CS10);
+ 111               	BB1
+ 112               	.LM1:
+ 113 0030 EEE4      		ldi r30,lo8(55)
+ 114 0032 F0E0      		ldi r31,hi8(55)
+ 115 0034 81E0      		ldi r24,lo8(2)
+ 116 0036 8083      		st Z,r24
+  30:my_idea.c     **** 	
+  31:my_idea.c     **** 	
+  32:my_idea.c     ****    while(1) {             // Infinite loop; define here the
+  33:my_idea.c     **** 		
+  34:my_idea.c     **** 		if(PINB & 0x02)
+ 118               	di r31,hi8(55)
+ 119               		ldi r24,lo8(2)
+ 120 0038 E6E3      		st Z,r24
+ 122 003c 8081      	.LM2:
+ 123 003e 882F      		ldi r30,lo8(52)
+ 124 0040 90E0      		ldi r31,hi8(52)
+ 125 0042 8270      		ldi r24,lo8(1)
+ 126 0044 9070      		st Z,r24
+ 128 0048 01F0      	.LM3:
+  35:my_idea.c     **** 			PORTC = PORTC | 0x01;
+ 129               	)
+ 130               		ldi r24,lo8(1)
+ 131 004a A5E3      		st Z,r24
+ 133 004e E5E3      	.LM3:
+ 134 0050 F0E0      		ldi r30,lo8(79)
+ 135 0052 8081      		ldi r31,hi8(79)
+ 136 0054 8160      		ldi r24,lo8(-125)
+ 137 0056 8C93      		st Z,r24
+ 139               	.LM4:
+  36:my_idea.c     **** 		else PORTC = PORTC & 0xFE; 	
+ 140               	4,lo8(-125)
+ 141               		st Z,r24
+ 143 005c B0E0      	.LM4:
+ 144 005e E5E3      		ldi r30,lo8(75)
+ 145 0060 F0E0      		ldi r31,hi8(75)
+ 146 0062 8081      		ldi r24,lo8(1)
+ 147 0064 8E7F      		st Z,r24
+ 149 0068 00C0      	.LM5:
+ 150               		ldi r30,lo8(74)
+ 151               		ldi r31,hi8(74)
+ 152               		ldi r24,lo8(-1)
+ 153               		st Z,r24
+ 155               	.LM6:
+ 156               		ldi r30,lo8(78)
+DEFINED SYMBOLS
+                            *ABS*:00000000 my_idea.c
+D:\DOCUME~1\student\LOCALS~1\Temp/ccWBx5ce.s:2      *ABS*:0000003f __SREG__
+D:\DOCUME~1\student\LOCALS~1\Temp/ccWBx5ce.s:3      *ABS*:0000003e __SP_H__
+D:\DOCUME~1\student\LOCALS~1\Temp/ccWBx5ce.s:4      *ABS*:0000003d __SP_L__
+D:\DOCUME~1\student\LOCALS~1\Temp/ccWBx5ce.s:5      *ABS*:00000034 __CCP__
+D:\DOCUME~1\student\LOCALS~1\Temp/ccWBx5ce.s:6      *ABS*:00000000 __tmp_reg__
+D:\DOCUME~1\student\LOCALS~1\Temp/ccWBx5ce.s:7      *ABS*:00000001 __zero_reg__
+D:\DOCUME~1\student\LOCALS~1\Temp/ccWBx5ce.s:71     .text:00000000 main
+                            *COM*:00000002 My_global
+
+UNDEFINED SYMBOLS
+__do_clear_bss

@@ -1,0 +1,189 @@
+   1               		.file	"pgm3.c"
+   2               	__SREG__ = 0x3f
+   3               	__SP_H__ = 0x3e
+   4               	__SP_L__ = 0x3d
+   5               	__CCP__  = 0x34
+   6               	__tmp_reg__ = 0
+   7               	__zero_reg__ = 1
+   9               		.text
+  10               	.Ltext0:
+  69               	.global	__vector_1
+  71               	__vector_1:
+   1:pgm3.c        **** // ***********************************************************
+   2:pgm3.c        **** // Project:
+   3:pgm3.c        **** // Author:
+   4:pgm3.c        **** // Module description:
+   5:pgm3.c        **** // ***********************************************************
+   6:pgm3.c        **** 
+   7:pgm3.c        **** #include <avr\io.h>              // Most basic include files
+   8:pgm3.c        **** #include <avr\interrupt.h>       // Add the necessary ones
+   9:pgm3.c        **** #include <avr\signal.h>          // here
+  10:pgm3.c        **** 
+  11:pgm3.c        **** // Define here the global static variables
+  12:pgm3.c        **** //
+  13:pgm3.c        **** int My_global;
+  14:pgm3.c        **** 
+  15:pgm3.c        **** // Interrupt handler example for INT0
+  16:pgm3.c        **** //
+  17:pgm3.c        **** SIGNAL(SIG_INTERRUPT0) {
+  72               	in r0,__SREG__
+  73               		push r0
+  74               		clr __zero_reg__
+  75 0000 1F92      		push r29
+  76 0002 0F92      		push r28
+  77 0004 0FB6      		in r28,__SP_L__
+  78 0006 0F92      		in r29,__SP_H__
+  79 0008 1124      	/* prologue: Signal */
+  80 000a DF93      	/* frame size = 0 */
+  81 000c CF93      	/* epilogue start */
+  83 0010 DEB7      	.LM1:
+  84               		pop r28
+  85               		pop r29
+  86               		pop r0
+  18:pgm3.c        **** 
+  19:pgm3.c        **** }
+  87               	gue: Signal */
+  88               	/* frame size = 0 */
+  89 0012 CF91      	/* epilogue start */
+  91 0016 0F90      	.LM1:
+  92 0018 0FBE      		pop r28
+  93 001a 0F90      		pop r29
+  94 001c 1F90      		pop r0
+  95 001e 1895      		out __SREG__,r0
+  96               		pop r0
+  97               		pop __zero_reg__
+  98               		reti
+ 100               	.Lscope1:
+  20:pgm3.c        **** 
+  21:pgm3.c        **** // It is recommended to use this coding style to
+  22:pgm3.c        **** // follow better the mixed C-assembly code in the
+  23:pgm3.c        **** // Program Memory window
+  24:pgm3.c        **** //
+  25:pgm3.c        **** void my_function(void) {  // Put the open brace '{' here
+ 102               	__zero_reg__
+ 103               		reti
+ 105 0020 DF93      	.Lscope1:
+ 107 0024 CDB7      	.global	my_function
+ 109               	my_function:
+  26:pgm3.c        **** 
+  27:pgm3.c        ****    asm("nop");          // Inline assembly example
+ 111               	,0,my_function
+ 112               	.global	my_function
+ 114               	my_function:
+ 116               	.LM2:
+ 117               	.LFBB2:
+  28:pgm3.c        **** }
+ 118               	global	my_function
+ 120               	my_function:
+ 122 002c DF91      	.LM2:
+ 123 002e 0895      	.LFBB2:
+ 124               		push r29
+ 125               		push r28
+ 126               		in r28,__SP_L__
+ 127               		in r29,__SP_H__
+ 128               	/* prologue: function */
+ 129               	/* frame size = 0 */
+  29:pgm3.c        **** 
+  30:pgm3.c        **** // ***********************************************************
+  31:pgm3.c        **** // Main program
+  32:pgm3.c        **** //
+  33:pgm3.c        **** int main(void)
+  34:pgm3.c        ****  {
+ 130               	ush r29
+ 131               		push r28
+ 132               		in r28,__SP_L__
+ 133 0030 DF93      		in r29,__SP_H__
+ 134 0032 CF93      	/* prologue: function */
+ 135 0034 00D0      	/* frame size = 0 */
+ 137 0038 DEB7      	.LM3:
+ 138               	/* #APP */
+ 139               	 ;  27 "pgm3.c" 1
+  35:pgm3.c        **** int a;
+  36:pgm3.c        **** DDRB=0x00;
+ 140               	nction */
+ 141               	/* frame size = 0 */
+ 143 003c F0E0      	.LM3:
+ 144 003e 1082      	/* #APP */
+  37:pgm3.c        **** DDRC=0x01;
+ 145               	H__
+ 146               	/* prologue: function */
+ 147 0040 E4E3      	/* frame size = 0 */
+ 149 0044 81E0      	.LM3:
+ 150 0046 8083      	/* #APP */
+  38:pgm3.c        **** PORTC=0x01;
+ 151               	H__
+ 152               	/* prologue: function */
+ 153 0048 E5E3      	/* frame size = 0 */
+ 155 004c 81E0      	.LM3:
+ 156 004e 8083      	/* #APP */
+ 157               	 ;  27 "pgm3.c" 1
+  39:pgm3.c        **** 
+  40:pgm3.c        **** 
+  41:pgm3.c        **** 
+  42:pgm3.c        **** 
+  43:pgm3.c        ****  while(1) {
+  44:pgm3.c        ****  a=PINB;
+ 158               	nction */
+ 159               	/* frame size = 0 */
+ 161 0052 F0E0      	.LM3:
+ 162 0054 8081      	/* #APP */
+ 163 0056 882F      	 ;  27 "pgm3.c" 1
+ 164 0058 90E0      		nop
+ 165 005a 9A83      	 ;  0 "" 2
+ 166 005c 8983      	/* epilogue start */
+  45:pgm3.c        **** a=a&0x01 ;
+ 167               	8,0,27,.LM3-.LFBB2
+ 168               	.LM3:
+ 169 005e 8981      	/* #APP */
+ 170 0060 9A81      	 ;  27 "pgm3.c" 1
+ 171 0062 8170      		nop
+ 172 0064 9070      	 ;  0 "" 2
+ 173 0066 9A83      	/* epilogue start */
+  46:pgm3.c        **** if(a==0x00)
+ 175               	APP */
+ 176               	 ;  27 "pgm3.c" 1
+ 177 006a 8981      		nop
+ 178 006c 9A81      	 ;  0 "" 2
+ 179 006e 0097      	/* epilogue start */
+  47:pgm3.c        **** PORTC=0x00 ;
+ 181               	APP */
+ 182               	 ;  27 "pgm3.c" 1
+ 183 0072 E5E3      		nop
+ 184 0074 F0E0      	 ;  0 "" 2
+ 185 0076 1082      	/* epilogue start */
+ 187               	.LM4:
+  48:pgm3.c        **** else
+  49:pgm3.c        **** PORTC=0x01;           // Infinite loop; define here the
+ 188               	 ;  27 "pgm3.c" 1
+ 189               		nop
+ 190 007a E5E3      	 ;  0 "" 2
+ 191 007c F0E0      	/* epilogue start */
+ 193 0080 8083      	.LM4:
+ 194               	/* #NOAPP */
+  50:pgm3.c        ****       my_function();      // system behaviour
+ 195               	" 1
+ 196               		nop
+ 197 0082 00D0      	 ;  0 "" 2
+ 198 0084 00C0      	/* epilogue start */
+ 200               	.LM4:
+ 201               	/* #NOAPP */
+ 202               		pop r28
+ 203               		pop r29
+ 204               		ret
+ 206               	.Lscope2:
+ 208               	.global	main
+DEFINED SYMBOLS
+                            *ABS*:00000000 pgm3.c
+D:\DOCUME~1\student\LOCALS~1\Temp/ccMSuZce.s:2      *ABS*:0000003f __SREG__
+D:\DOCUME~1\student\LOCALS~1\Temp/ccMSuZce.s:3      *ABS*:0000003e __SP_H__
+D:\DOCUME~1\student\LOCALS~1\Temp/ccMSuZce.s:4      *ABS*:0000003d __SP_L__
+D:\DOCUME~1\student\LOCALS~1\Temp/ccMSuZce.s:5      *ABS*:00000034 __CCP__
+D:\DOCUME~1\student\LOCALS~1\Temp/ccMSuZce.s:6      *ABS*:00000000 __tmp_reg__
+D:\DOCUME~1\student\LOCALS~1\Temp/ccMSuZce.s:7      *ABS*:00000001 __zero_reg__
+D:\DOCUME~1\student\LOCALS~1\Temp/ccMSuZce.s:71     .text:00000000 __vector_1
+D:\DOCUME~1\student\LOCALS~1\Temp/ccMSuZce.s:101    .text:00000020 my_function
+D:\DOCUME~1\student\LOCALS~1\Temp/ccMSuZce.s:129    .text:00000030 main
+                            *COM*:00000002 My_global
+
+UNDEFINED SYMBOLS
+__do_clear_bss

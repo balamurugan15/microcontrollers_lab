@@ -1,0 +1,71 @@
+set -e; avr-gcc -MM -mmcu=atmega8 -I. -O0 -gstabs -std=gnu99  -funsigned-char -funsigned-bitfields -fpack-struct -fshort-enums  -Wall -Wstrict-prototypes  -Wa,-adhlns=pgm3.lst   pgm3.c \
+	| sed 's,\(.*\)\.o[ :]*,\1.o \1.d : ,g' > pgm3.d; \
+	[ -s pgm3.d ] || rm -f pgm3.d
+
+-------- begin --------
+avr-gcc (WinAVR 20100110) 4.3.3
+Copyright (C) 2008 Free Software Foundation, Inc.
+This is free software; see the source for copying conditions.  There is NO
+warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+
+
+Size before:
+pgm3.elf  :
+section    size      addr
+.text       210         0
+.bss          2   8388704
+.stab       984         0
+.stabstr   1669         0
+Total      2865
+
+
+
+
+Compiling: pgm3.c
+avr-gcc -c -mmcu=atmega8 -I. -O0 -gstabs -std=gnu99  -funsigned-char -funsigned-bitfields -fpack-struct -fshort-enums  -Wall -Wstrict-prototypes  -Wa,-adhlns=pgm3.lst   pgm3.c -o pgm3.o
+In file included from pgm3.c:9:
+c:/winavr/lib/gcc/../../avr/include/avr\signal.h:36:2: warning: #warning "This header file is obsolete.  Use <avr/interrupt.h>."
+
+Linking: pgm3.elf
+avr-gcc -mmcu=atmega8 -I. -O0 -gstabs -std=gnu99  -funsigned-char -funsigned-bitfields -fpack-struct -fshort-enums  -Wall -Wstrict-prototypes  -Wa,-adhlns=pgm3.o   pgm3.o  --output pgm3.elf -lm -Wl,-Map=pgm3.map -Wl,--cref
+
+Creating load file for Flash: pgm3.hex
+avr-objcopy -O ihex -R .eeprom pgm3.elf pgm3.hex
+
+Creating load file for EEPROM: pgm3.eep
+avr-objcopy -j .eeprom --set-section-flags=.eeprom="alloc,load" \
+	--change-section-lma .eeprom=0 -O ihex pgm3.elf pgm3.eep
+c:\winavr\bin\avr-objcopy.exe: --change-section-lma .eeprom=0x00000000 never used
+
+Creating Extended Listing: pgm3.lss
+avr-objdump -h -S pgm3.elf > pgm3.lss
+
+Creating Symbol Table: pgm3.sym
+avr-nm -n pgm3.elf > pgm3.sym
+
+Converting to AVR COFF: pgm3.cof
+avr-objcopy --debugging --change-section-address .data-0x800000 --change-section-address .bss-0x800000 --change-section-address .noinit-0x800000 --change-section-address .eeprom-0x810000 -O coff-ext-avr pgm3.elf pgm3.cof   # Extended COFF. Supported in VMLAB from rel. 3.10
+Discarding local symbol outside any compilation unit: .do_clear_bss_start
+Discarding local symbol outside any compilation unit: .do_clear_bss_loop
+Warning: no "data" section found in output file
+c:\winavr\bin\avr-objcopy.exe: --change-section-vma .eeprom+0xff7f0000 never used
+c:\winavr\bin\avr-objcopy.exe: --change-section-lma .eeprom+0xff7f0000 never used
+c:\winavr\bin\avr-objcopy.exe: --change-section-vma .noinit+0xff800000 never used
+c:\winavr\bin\avr-objcopy.exe: --change-section-lma .noinit+0xff800000 never used
+c:\winavr\bin\avr-objcopy.exe: --change-section-vma .data+0xff800000 never used
+c:\winavr\bin\avr-objcopy.exe: --change-section-lma .data+0xff800000 never used
+
+Size after:
+pgm3.elf  :
+section    size      addr
+.text       210         0
+.bss          2   8388704
+.stab       984         0
+.stabstr   1669         0
+Total      2865
+
+
+
+Errors: none
+-------- end --------
+

@@ -1,0 +1,5 @@
+--cpu ARM7TDMI "startup.o" "gpio.o" 
+--strict --scatter "GPIO_slow.sct" 
+--summary_stderr --info summarysizes --map --xref --callgraph --symbols 
+--info sizes --info totals --info unused --info veneers 
+ --list ".\GPIO_slow.map" -o GPIO_slow.axf

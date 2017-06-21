@@ -1,0 +1,17 @@
+Creating   'pgm2.eep'
+Creating   'pgm2.hex'
+Creating   'pgm2.obj'
+Creating   'pgm2.lis'
+Creating   'pgm2.map'
+
+Assembling 'pgm2.asm'
+Including  'C:\VMLAB\include\m8def.inc'
+
+Program memory usage:
+Code             :   30 words
+Constants (dw/db):    0 words
+Unused           :    0 words
+Total            :   30 words
+
+Assembly complete with no errors.
+Deleting   'pgm2.eep'

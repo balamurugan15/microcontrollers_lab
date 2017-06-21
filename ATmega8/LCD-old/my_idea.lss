@@ -1,0 +1,468 @@
+
+my_idea.elf:     file format elf32-avr
+
+Sections:
+Idx Name          Size      VMA       LMA       File off  Algn
+  0 .text         0000035e  00000000  00000000  00000074  2**1
+                  CONTENTS, ALLOC, LOAD, READONLY, CODE
+  1 .bss          00000004  00800060  00800060  000003d2  2**0
+                  ALLOC
+  2 .stab         000005ac  00000000  00000000  000003d4  2**2
+                  CONTENTS, READONLY, DEBUGGING
+  3 .stabstr      00000662  00000000  00000000  00000980  2**0
+                  CONTENTS, READONLY, DEBUGGING
+
+Disassembly of section .text:
+
+00000000 <__vectors>:
+   0:	12 c0       	rjmp	.+36     	; 0x26 <__ctors_end>
+   2:	21 c0       	rjmp	.+66     	; 0x46 <__bad_interrupt>
+   4:	20 c0       	rjmp	.+64     	; 0x46 <__bad_interrupt>
+   6:	1f c0       	rjmp	.+62     	; 0x46 <__bad_interrupt>
+   8:	1e c0       	rjmp	.+60     	; 0x46 <__bad_interrupt>
+   a:	1d c0       	rjmp	.+58     	; 0x46 <__bad_interrupt>
+   c:	1c c0       	rjmp	.+56     	; 0x46 <__bad_interrupt>
+   e:	1b c0       	rjmp	.+54     	; 0x46 <__bad_interrupt>
+  10:	1a c0       	rjmp	.+52     	; 0x46 <__bad_interrupt>
+  12:	19 c0       	rjmp	.+50     	; 0x46 <__bad_interrupt>
+  14:	18 c0       	rjmp	.+48     	; 0x46 <__bad_interrupt>
+  16:	17 c0       	rjmp	.+46     	; 0x46 <__bad_interrupt>
+  18:	16 c0       	rjmp	.+44     	; 0x46 <__bad_interrupt>
+  1a:	15 c0       	rjmp	.+42     	; 0x46 <__bad_interrupt>
+  1c:	14 c0       	rjmp	.+40     	; 0x46 <__bad_interrupt>
+  1e:	13 c0       	rjmp	.+38     	; 0x46 <__bad_interrupt>
+  20:	12 c0       	rjmp	.+36     	; 0x46 <__bad_interrupt>
+  22:	11 c0       	rjmp	.+34     	; 0x46 <__bad_interrupt>
+  24:	10 c0       	rjmp	.+32     	; 0x46 <__bad_interrupt>
+
+00000026 <__ctors_end>:
+  26:	11 24       	eor	r1, r1
+  28:	1f be       	out	0x3f, r1	; 63
+  2a:	cf e5       	ldi	r28, 0x5F	; 95
+  2c:	d4 e0       	ldi	r29, 0x04	; 4
+  2e:	de bf       	out	0x3e, r29	; 62
+  30:	cd bf       	out	0x3d, r28	; 61
+
+00000032 <__do_clear_bss>:
+  32:	10 e0       	ldi	r17, 0x00	; 0
+  34:	a0 e6       	ldi	r26, 0x60	; 96
+  36:	b0 e0       	ldi	r27, 0x00	; 0
+  38:	01 c0       	rjmp	.+2      	; 0x3c <.do_clear_bss_start>
+
+0000003a <.do_clear_bss_loop>:
+  3a:	1d 92       	st	X+, r1
+
+0000003c <.do_clear_bss_start>:
+  3c:	a4 36       	cpi	r26, 0x64	; 100
+  3e:	b1 07       	cpc	r27, r17
+  40:	e1 f7       	brne	.-8      	; 0x3a <.do_clear_bss_loop>
+  42:	02 d0       	rcall	.+4      	; 0x48 <main>
+  44:	8a c1       	rjmp	.+788    	; 0x35a <_exit>
+
+00000046 <__bad_interrupt>:
+  46:	dc cf       	rjmp	.-72     	; 0x0 <__vectors>
+
+00000048 <main>:
+
+
+// ***********************************************************
+// Main program
+//
+int main(void) {
+  48:	df 93       	push	r29
+  4a:	cf 93       	push	r28
+  4c:	cd b7       	in	r28, 0x3d	; 61
+  4e:	de b7       	in	r29, 0x3e	; 62
+	
+	
+	DDRB = 0x07;
+  50:	e7 e3       	ldi	r30, 0x37	; 55
+  52:	f0 e0       	ldi	r31, 0x00	; 0
+  54:	87 e0       	ldi	r24, 0x07	; 7
+  56:	80 83       	st	Z, r24
+	DDRD = 0xFF;
+  58:	e1 e3       	ldi	r30, 0x31	; 49
+  5a:	f0 e0       	ldi	r31, 0x00	; 0
+  5c:	8f ef       	ldi	r24, 0xFF	; 255
+  5e:	80 83       	st	Z, r24
+	
+	i = k;
+  60:	88 ee       	ldi	r24, 0xE8	; 232
+  62:	93 e0       	ldi	r25, 0x03	; 3
+  64:	90 93 63 00 	sts	0x0063, r25
+  68:	80 93 62 00 	sts	0x0062, r24
+  6c:	09 c0       	rjmp	.+18     	; 0x80 <main+0x38>
+	while(i>0) i--;
+  6e:	80 91 62 00 	lds	r24, 0x0062
+  72:	90 91 63 00 	lds	r25, 0x0063
+  76:	01 97       	sbiw	r24, 0x01	; 1
+  78:	90 93 63 00 	sts	0x0063, r25
+  7c:	80 93 62 00 	sts	0x0062, r24
+  80:	80 91 62 00 	lds	r24, 0x0062
+  84:	90 91 63 00 	lds	r25, 0x0063
+  88:	18 16       	cp	r1, r24
+  8a:	19 06       	cpc	r1, r25
+  8c:	84 f3       	brlt	.-32     	; 0x6e <main+0x26>
+	
+	
+	PORTD = 0x30; //8-bit mode
+  8e:	e2 e3       	ldi	r30, 0x32	; 50
+  90:	f0 e0       	ldi	r31, 0x00	; 0
+  92:	80 e3       	ldi	r24, 0x30	; 48
+  94:	80 83       	st	Z, r24
+	PORTB = 0x01;
+  96:	e8 e3       	ldi	r30, 0x38	; 56
+  98:	f0 e0       	ldi	r31, 0x00	; 0
+  9a:	81 e0       	ldi	r24, 0x01	; 1
+  9c:	80 83       	st	Z, r24
+	PORTB = 0x00;
+  9e:	e8 e3       	ldi	r30, 0x38	; 56
+  a0:	f0 e0       	ldi	r31, 0x00	; 0
+  a2:	10 82       	st	Z, r1
+	
+	i = k;
+  a4:	88 ee       	ldi	r24, 0xE8	; 232
+  a6:	93 e0       	ldi	r25, 0x03	; 3
+  a8:	90 93 63 00 	sts	0x0063, r25
+  ac:	80 93 62 00 	sts	0x0062, r24
+  b0:	09 c0       	rjmp	.+18     	; 0xc4 <main+0x7c>
+	while(i>0) i--;
+  b2:	80 91 62 00 	lds	r24, 0x0062
+  b6:	90 91 63 00 	lds	r25, 0x0063
+  ba:	01 97       	sbiw	r24, 0x01	; 1
+  bc:	90 93 63 00 	sts	0x0063, r25
+  c0:	80 93 62 00 	sts	0x0062, r24
+  c4:	80 91 62 00 	lds	r24, 0x0062
+  c8:	90 91 63 00 	lds	r25, 0x0063
+  cc:	18 16       	cp	r1, r24
+  ce:	19 06       	cpc	r1, r25
+  d0:	84 f3       	brlt	.-32     	; 0xb2 <main+0x6a>
+	
+	PORTD = 0x0F; //turn on, cursor enable, blink
+  d2:	e2 e3       	ldi	r30, 0x32	; 50
+  d4:	f0 e0       	ldi	r31, 0x00	; 0
+  d6:	8f e0       	ldi	r24, 0x0F	; 15
+  d8:	80 83       	st	Z, r24
+	PORTB = 0x01;
+  da:	e8 e3       	ldi	r30, 0x38	; 56
+  dc:	f0 e0       	ldi	r31, 0x00	; 0
+  de:	81 e0       	ldi	r24, 0x01	; 1
+  e0:	80 83       	st	Z, r24
+	PORTB = 0x00;
+  e2:	e8 e3       	ldi	r30, 0x38	; 56
+  e4:	f0 e0       	ldi	r31, 0x00	; 0
+  e6:	10 82       	st	Z, r1
+	
+	i = k;
+  e8:	88 ee       	ldi	r24, 0xE8	; 232
+  ea:	93 e0       	ldi	r25, 0x03	; 3
+  ec:	90 93 63 00 	sts	0x0063, r25
+  f0:	80 93 62 00 	sts	0x0062, r24
+  f4:	09 c0       	rjmp	.+18     	; 0x108 <main+0xc0>
+	while(i>0) i--;
+  f6:	80 91 62 00 	lds	r24, 0x0062
+  fa:	90 91 63 00 	lds	r25, 0x0063
+  fe:	01 97       	sbiw	r24, 0x01	; 1
+ 100:	90 93 63 00 	sts	0x0063, r25
+ 104:	80 93 62 00 	sts	0x0062, r24
+ 108:	80 91 62 00 	lds	r24, 0x0062
+ 10c:	90 91 63 00 	lds	r25, 0x0063
+ 110:	18 16       	cp	r1, r24
+ 112:	19 06       	cpc	r1, r25
+ 114:	84 f3       	brlt	.-32     	; 0xf6 <main+0xae>
+		
+	PORTD = 0x01; //clear,
+ 116:	e2 e3       	ldi	r30, 0x32	; 50
+ 118:	f0 e0       	ldi	r31, 0x00	; 0
+ 11a:	81 e0       	ldi	r24, 0x01	; 1
+ 11c:	80 83       	st	Z, r24
+	PORTB = 0x01;
+ 11e:	e8 e3       	ldi	r30, 0x38	; 56
+ 120:	f0 e0       	ldi	r31, 0x00	; 0
+ 122:	81 e0       	ldi	r24, 0x01	; 1
+ 124:	80 83       	st	Z, r24
+	PORTB = 0x00;
+ 126:	e8 e3       	ldi	r30, 0x38	; 56
+ 128:	f0 e0       	ldi	r31, 0x00	; 0
+ 12a:	10 82       	st	Z, r1
+	
+
+	i = k;
+ 12c:	88 ee       	ldi	r24, 0xE8	; 232
+ 12e:	93 e0       	ldi	r25, 0x03	; 3
+ 130:	90 93 63 00 	sts	0x0063, r25
+ 134:	80 93 62 00 	sts	0x0062, r24
+ 138:	09 c0       	rjmp	.+18     	; 0x14c <main+0x104>
+	while(i>0) i--;
+ 13a:	80 91 62 00 	lds	r24, 0x0062
+ 13e:	90 91 63 00 	lds	r25, 0x0063
+ 142:	01 97       	sbiw	r24, 0x01	; 1
+ 144:	90 93 63 00 	sts	0x0063, r25
+ 148:	80 93 62 00 	sts	0x0062, r24
+ 14c:	80 91 62 00 	lds	r24, 0x0062
+ 150:	90 91 63 00 	lds	r25, 0x0063
+ 154:	18 16       	cp	r1, r24
+ 156:	19 06       	cpc	r1, r25
+ 158:	84 f3       	brlt	.-32     	; 0x13a <main+0xf2>
+		
+	PORTD = 0x80; //start address
+ 15a:	e2 e3       	ldi	r30, 0x32	; 50
+ 15c:	f0 e0       	ldi	r31, 0x00	; 0
+ 15e:	80 e8       	ldi	r24, 0x80	; 128
+ 160:	80 83       	st	Z, r24
+	PORTB = 0x01;
+ 162:	e8 e3       	ldi	r30, 0x38	; 56
+ 164:	f0 e0       	ldi	r31, 0x00	; 0
+ 166:	81 e0       	ldi	r24, 0x01	; 1
+ 168:	80 83       	st	Z, r24
+	PORTB = 0x00;
+ 16a:	e8 e3       	ldi	r30, 0x38	; 56
+ 16c:	f0 e0       	ldi	r31, 0x00	; 0
+ 16e:	10 82       	st	Z, r1
+	
+
+	i = k;
+ 170:	88 ee       	ldi	r24, 0xE8	; 232
+ 172:	93 e0       	ldi	r25, 0x03	; 3
+ 174:	90 93 63 00 	sts	0x0063, r25
+ 178:	80 93 62 00 	sts	0x0062, r24
+ 17c:	09 c0       	rjmp	.+18     	; 0x190 <main+0x148>
+	while(i>0) i--;
+ 17e:	80 91 62 00 	lds	r24, 0x0062
+ 182:	90 91 63 00 	lds	r25, 0x0063
+ 186:	01 97       	sbiw	r24, 0x01	; 1
+ 188:	90 93 63 00 	sts	0x0063, r25
+ 18c:	80 93 62 00 	sts	0x0062, r24
+ 190:	80 91 62 00 	lds	r24, 0x0062
+ 194:	90 91 63 00 	lds	r25, 0x0063
+ 198:	18 16       	cp	r1, r24
+ 19a:	19 06       	cpc	r1, r25
+ 19c:	84 f3       	brlt	.-32     	; 0x17e <main+0x136>
+	
+	PORTB = 0x05; //data selected	
+ 19e:	e8 e3       	ldi	r30, 0x38	; 56
+ 1a0:	f0 e0       	ldi	r31, 0x00	; 0
+ 1a2:	85 e0       	ldi	r24, 0x05	; 5
+ 1a4:	80 83       	st	Z, r24
+	PORTD = 0x41;
+ 1a6:	e2 e3       	ldi	r30, 0x32	; 50
+ 1a8:	f0 e0       	ldi	r31, 0x00	; 0
+ 1aa:	81 e4       	ldi	r24, 0x41	; 65
+ 1ac:	80 83       	st	Z, r24
+	PORTB = 0x04;
+ 1ae:	e8 e3       	ldi	r30, 0x38	; 56
+ 1b0:	f0 e0       	ldi	r31, 0x00	; 0
+ 1b2:	84 e0       	ldi	r24, 0x04	; 4
+ 1b4:	80 83       	st	Z, r24
+	
+	i = k;
+ 1b6:	88 ee       	ldi	r24, 0xE8	; 232
+ 1b8:	93 e0       	ldi	r25, 0x03	; 3
+ 1ba:	90 93 63 00 	sts	0x0063, r25
+ 1be:	80 93 62 00 	sts	0x0062, r24
+ 1c2:	09 c0       	rjmp	.+18     	; 0x1d6 <main+0x18e>
+	while(i>0) i--;
+ 1c4:	80 91 62 00 	lds	r24, 0x0062
+ 1c8:	90 91 63 00 	lds	r25, 0x0063
+ 1cc:	01 97       	sbiw	r24, 0x01	; 1
+ 1ce:	90 93 63 00 	sts	0x0063, r25
+ 1d2:	80 93 62 00 	sts	0x0062, r24
+ 1d6:	80 91 62 00 	lds	r24, 0x0062
+ 1da:	90 91 63 00 	lds	r25, 0x0063
+ 1de:	18 16       	cp	r1, r24
+ 1e0:	19 06       	cpc	r1, r25
+ 1e2:	84 f3       	brlt	.-32     	; 0x1c4 <main+0x17c>
+	
+	PORTB = 0x05; //data selected	
+ 1e4:	e8 e3       	ldi	r30, 0x38	; 56
+ 1e6:	f0 e0       	ldi	r31, 0x00	; 0
+ 1e8:	85 e0       	ldi	r24, 0x05	; 5
+ 1ea:	80 83       	st	Z, r24
+	PORTD = 0x42;
+ 1ec:	e2 e3       	ldi	r30, 0x32	; 50
+ 1ee:	f0 e0       	ldi	r31, 0x00	; 0
+ 1f0:	82 e4       	ldi	r24, 0x42	; 66
+ 1f2:	80 83       	st	Z, r24
+	PORTB = 0x04;
+ 1f4:	e8 e3       	ldi	r30, 0x38	; 56
+ 1f6:	f0 e0       	ldi	r31, 0x00	; 0
+ 1f8:	84 e0       	ldi	r24, 0x04	; 4
+ 1fa:	80 83       	st	Z, r24
+
+	i = k;
+ 1fc:	88 ee       	ldi	r24, 0xE8	; 232
+ 1fe:	93 e0       	ldi	r25, 0x03	; 3
+ 200:	90 93 63 00 	sts	0x0063, r25
+ 204:	80 93 62 00 	sts	0x0062, r24
+ 208:	09 c0       	rjmp	.+18     	; 0x21c <main+0x1d4>
+	while(i>0) i--;
+ 20a:	80 91 62 00 	lds	r24, 0x0062
+ 20e:	90 91 63 00 	lds	r25, 0x0063
+ 212:	01 97       	sbiw	r24, 0x01	; 1
+ 214:	90 93 63 00 	sts	0x0063, r25
+ 218:	80 93 62 00 	sts	0x0062, r24
+ 21c:	80 91 62 00 	lds	r24, 0x0062
+ 220:	90 91 63 00 	lds	r25, 0x0063
+ 224:	18 16       	cp	r1, r24
+ 226:	19 06       	cpc	r1, r25
+ 228:	84 f3       	brlt	.-32     	; 0x20a <main+0x1c2>
+	
+	
+	PORTB = 0x05; //data selected	
+ 22a:	e8 e3       	ldi	r30, 0x38	; 56
+ 22c:	f0 e0       	ldi	r31, 0x00	; 0
+ 22e:	85 e0       	ldi	r24, 0x05	; 5
+ 230:	80 83       	st	Z, r24
+	PORTD = 0x43;
+ 232:	e2 e3       	ldi	r30, 0x32	; 50
+ 234:	f0 e0       	ldi	r31, 0x00	; 0
+ 236:	83 e4       	ldi	r24, 0x43	; 67
+ 238:	80 83       	st	Z, r24
+	PORTB = 0x04;
+ 23a:	e8 e3       	ldi	r30, 0x38	; 56
+ 23c:	f0 e0       	ldi	r31, 0x00	; 0
+ 23e:	84 e0       	ldi	r24, 0x04	; 4
+ 240:	80 83       	st	Z, r24
+	
+   i = k;
+ 242:	88 ee       	ldi	r24, 0xE8	; 232
+ 244:	93 e0       	ldi	r25, 0x03	; 3
+ 246:	90 93 63 00 	sts	0x0063, r25
+ 24a:	80 93 62 00 	sts	0x0062, r24
+ 24e:	09 c0       	rjmp	.+18     	; 0x262 <main+0x21a>
+	while(i>0) i--;
+ 250:	80 91 62 00 	lds	r24, 0x0062
+ 254:	90 91 63 00 	lds	r25, 0x0063
+ 258:	01 97       	sbiw	r24, 0x01	; 1
+ 25a:	90 93 63 00 	sts	0x0063, r25
+ 25e:	80 93 62 00 	sts	0x0062, r24
+ 262:	80 91 62 00 	lds	r24, 0x0062
+ 266:	90 91 63 00 	lds	r25, 0x0063
+ 26a:	18 16       	cp	r1, r24
+ 26c:	19 06       	cpc	r1, r25
+ 26e:	84 f3       	brlt	.-32     	; 0x250 <main+0x208>
+	
+	PORTD = 0xC0; //start address
+ 270:	e2 e3       	ldi	r30, 0x32	; 50
+ 272:	f0 e0       	ldi	r31, 0x00	; 0
+ 274:	80 ec       	ldi	r24, 0xC0	; 192
+ 276:	80 83       	st	Z, r24
+	PORTB = 0x01;
+ 278:	e8 e3       	ldi	r30, 0x38	; 56
+ 27a:	f0 e0       	ldi	r31, 0x00	; 0
+ 27c:	81 e0       	ldi	r24, 0x01	; 1
+ 27e:	80 83       	st	Z, r24
+	PORTB = 0x00;
+ 280:	e8 e3       	ldi	r30, 0x38	; 56
+ 282:	f0 e0       	ldi	r31, 0x00	; 0
+ 284:	10 82       	st	Z, r1
+	
+		i = k;
+ 286:	88 ee       	ldi	r24, 0xE8	; 232
+ 288:	93 e0       	ldi	r25, 0x03	; 3
+ 28a:	90 93 63 00 	sts	0x0063, r25
+ 28e:	80 93 62 00 	sts	0x0062, r24
+ 292:	09 c0       	rjmp	.+18     	; 0x2a6 <main+0x25e>
+	while(i>0) i--;
+ 294:	80 91 62 00 	lds	r24, 0x0062
+ 298:	90 91 63 00 	lds	r25, 0x0063
+ 29c:	01 97       	sbiw	r24, 0x01	; 1
+ 29e:	90 93 63 00 	sts	0x0063, r25
+ 2a2:	80 93 62 00 	sts	0x0062, r24
+ 2a6:	80 91 62 00 	lds	r24, 0x0062
+ 2aa:	90 91 63 00 	lds	r25, 0x0063
+ 2ae:	18 16       	cp	r1, r24
+ 2b0:	19 06       	cpc	r1, r25
+ 2b2:	84 f3       	brlt	.-32     	; 0x294 <main+0x24c>
+	
+	PORTB = 0x05; //data selected	
+ 2b4:	e8 e3       	ldi	r30, 0x38	; 56
+ 2b6:	f0 e0       	ldi	r31, 0x00	; 0
+ 2b8:	85 e0       	ldi	r24, 0x05	; 5
+ 2ba:	80 83       	st	Z, r24
+	PORTD = 0x44;
+ 2bc:	e2 e3       	ldi	r30, 0x32	; 50
+ 2be:	f0 e0       	ldi	r31, 0x00	; 0
+ 2c0:	84 e4       	ldi	r24, 0x44	; 68
+ 2c2:	80 83       	st	Z, r24
+	PORTB = 0x04;
+ 2c4:	e8 e3       	ldi	r30, 0x38	; 56
+ 2c6:	f0 e0       	ldi	r31, 0x00	; 0
+ 2c8:	84 e0       	ldi	r24, 0x04	; 4
+ 2ca:	80 83       	st	Z, r24
+	
+	i = k;
+ 2cc:	88 ee       	ldi	r24, 0xE8	; 232
+ 2ce:	93 e0       	ldi	r25, 0x03	; 3
+ 2d0:	90 93 63 00 	sts	0x0063, r25
+ 2d4:	80 93 62 00 	sts	0x0062, r24
+ 2d8:	09 c0       	rjmp	.+18     	; 0x2ec <main+0x2a4>
+	while(i>0) i--;
+ 2da:	80 91 62 00 	lds	r24, 0x0062
+ 2de:	90 91 63 00 	lds	r25, 0x0063
+ 2e2:	01 97       	sbiw	r24, 0x01	; 1
+ 2e4:	90 93 63 00 	sts	0x0063, r25
+ 2e8:	80 93 62 00 	sts	0x0062, r24
+ 2ec:	80 91 62 00 	lds	r24, 0x0062
+ 2f0:	90 91 63 00 	lds	r25, 0x0063
+ 2f4:	18 16       	cp	r1, r24
+ 2f6:	19 06       	cpc	r1, r25
+ 2f8:	84 f3       	brlt	.-32     	; 0x2da <main+0x292>
+	
+	PORTB = 0x05; //data selected	
+ 2fa:	e8 e3       	ldi	r30, 0x38	; 56
+ 2fc:	f0 e0       	ldi	r31, 0x00	; 0
+ 2fe:	85 e0       	ldi	r24, 0x05	; 5
+ 300:	80 83       	st	Z, r24
+	PORTD = 0x45;
+ 302:	e2 e3       	ldi	r30, 0x32	; 50
+ 304:	f0 e0       	ldi	r31, 0x00	; 0
+ 306:	85 e4       	ldi	r24, 0x45	; 69
+ 308:	80 83       	st	Z, r24
+	PORTB = 0x04;
+ 30a:	e8 e3       	ldi	r30, 0x38	; 56
+ 30c:	f0 e0       	ldi	r31, 0x00	; 0
+ 30e:	84 e0       	ldi	r24, 0x04	; 4
+ 310:	80 83       	st	Z, r24
+
+	i = k;
+ 312:	88 ee       	ldi	r24, 0xE8	; 232
+ 314:	93 e0       	ldi	r25, 0x03	; 3
+ 316:	90 93 63 00 	sts	0x0063, r25
+ 31a:	80 93 62 00 	sts	0x0062, r24
+ 31e:	09 c0       	rjmp	.+18     	; 0x332 <main+0x2ea>
+	while(i>0) i--;
+ 320:	80 91 62 00 	lds	r24, 0x0062
+ 324:	90 91 63 00 	lds	r25, 0x0063
+ 328:	01 97       	sbiw	r24, 0x01	; 1
+ 32a:	90 93 63 00 	sts	0x0063, r25
+ 32e:	80 93 62 00 	sts	0x0062, r24
+ 332:	80 91 62 00 	lds	r24, 0x0062
+ 336:	90 91 63 00 	lds	r25, 0x0063
+ 33a:	18 16       	cp	r1, r24
+ 33c:	19 06       	cpc	r1, r25
+ 33e:	84 f3       	brlt	.-32     	; 0x320 <main+0x2d8>
+	
+	
+	PORTB = 0x05; //data selected	
+ 340:	e8 e3       	ldi	r30, 0x38	; 56
+ 342:	f0 e0       	ldi	r31, 0x00	; 0
+ 344:	85 e0       	ldi	r24, 0x05	; 5
+ 346:	80 83       	st	Z, r24
+	PORTD = 0x46;
+ 348:	e2 e3       	ldi	r30, 0x32	; 50
+ 34a:	f0 e0       	ldi	r31, 0x00	; 0
+ 34c:	86 e4       	ldi	r24, 0x46	; 70
+ 34e:	80 83       	st	Z, r24
+	PORTB = 0x04;
+ 350:	e8 e3       	ldi	r30, 0x38	; 56
+ 352:	f0 e0       	ldi	r31, 0x00	; 0
+ 354:	84 e0       	ldi	r24, 0x04	; 4
+ 356:	80 83       	st	Z, r24
+ 358:	ff cf       	rjmp	.-2      	; 0x358 <main+0x310>
+
+0000035a <_exit>:
+ 35a:	f8 94       	cli
+
+0000035c <__stop_program>:
+ 35c:	ff cf       	rjmp	.-2      	; 0x35c <__stop_program>

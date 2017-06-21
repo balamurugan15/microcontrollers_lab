@@ -1,0 +1,17 @@
+Creating   'comp.eep'
+Creating   'comp.hex'
+Creating   'comp.obj'
+Creating   'comp.lis'
+Creating   'comp.map'
+
+Assembling 'comp.asm'
+Including  'C:\VMLAB\include\m8def.inc'
+
+Program memory usage:
+Code             :   28 words
+Constants (dw/db):    0 words
+Unused           :    0 words
+Total            :   28 words
+
+Assembly complete with no errors.
+Deleting   'comp.eep'

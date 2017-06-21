@@ -1,0 +1,43 @@
+; ************************************************************
+; PROJECT:
+; AUTHOR:
+; ************************************************************
+
+; Micro + software running
+; ------------------------------------------------------------
+.MICRO "ATmega8"
+.PROGRAM "spi_m.asm"
+.TARGET "spi_m.hex"
+
+.TRACE              ; Activate micro trace
+
+; Following lines are optional; if not included
+; exactly these values are taken by default
+; ------------------------------------------------------------
+.POWER VDD=5 VSS=0  ; Power nodes
+.CLOCK 1meg         ; Micro clock
+.STORE 250m         ; Trace (micro+signals) storage time
+
+; Micro nodes: RESET, AREF, PB0-PB7, PC0-PC6, PD0-PD7, ACO, TIM1OVF, ADC6, ADC7
+; Define here the hardware around the micro
+; ------------------------------------------------------------
+
+
+K0 PD0 VSS LATCHED ; x: Buttons 0 - F. Optional type: MONOSTABLE(t_delay), LATCHED
+K1 PD1 VSS LATCHED
+K2 PD2 VSS LATCHED
+K3 PD3 VSS LATCHED
+K4 PD4 VSS LATCHED
+K5 PD5 VSS LATCHED
+K6 PD6 VSS LATCHED
+K7 PD7 VSS LATCHED
+
+
+
+R1  PB2 VDD 10k
+
+XMOSI EXTOUT PB3
+XSCK EXTOUT PB5
+
+
+

@@ -1,0 +1,545 @@
+   1               		.file	"my_idea.c"
+   2               	__SREG__ = 0x3f
+   3               	__SP_H__ = 0x3e
+   4               	__SP_L__ = 0x3d
+   5               	__CCP__  = 0x34
+   6               	__tmp_reg__ = 0
+   7               	__zero_reg__ = 1
+   9               		.text
+  10               	.Ltext0:
+  69               	.global	main
+  71               	main:
+   1:my_idea.c     **** // ***********************************************************
+   2:my_idea.c     **** // Project:
+   3:my_idea.c     **** // Author:
+   4:my_idea.c     **** // Module description:
+   5:my_idea.c     **** // ***********************************************************
+   6:my_idea.c     **** 
+   7:my_idea.c     **** #include <avr\io.h>              // Most basic include files
+   8:my_idea.c     **** #include <avr\interrupt.h>       // Add the necessary ones
+   9:my_idea.c     **** #include <avr\signal.h>          // here
+  10:my_idea.c     **** 
+  11:my_idea.c     **** #define k 1000
+  12:my_idea.c     **** // Define here the global static variables
+  13:my_idea.c     **** //
+  14:my_idea.c     **** int My_global;
+  15:my_idea.c     **** 
+  16:my_idea.c     **** int i;
+  17:my_idea.c     **** 
+  18:my_idea.c     **** 
+  19:my_idea.c     **** 
+  20:my_idea.c     **** // ***********************************************************
+  21:my_idea.c     **** // Main program
+  22:my_idea.c     **** //
+  23:my_idea.c     **** int main(void) {
+  72               	_SP_L__
+  73               		in r29,__SP_H__
+  74               	/* prologue: function */
+  75 0000 DF93      	/* frame size = 0 */
+  77 0004 CDB7      	.LM1:
+  78 0006 DEB7      		ldi r30,lo8(55)
+  79               		ldi r31,hi8(55)
+  80               		ldi r24,lo8(7)
+  24:my_idea.c     **** 	
+  25:my_idea.c     **** 	
+  26:my_idea.c     **** 	DDRB = 0x07;
+  81               	
+  83 0008 E7E3      	.LM2:
+  84 000a F0E0      		ldi r30,lo8(49)
+  85 000c 87E0      		ldi r31,hi8(49)
+  86 000e 8083      		ldi r24,lo8(-1)
+  27:my_idea.c     **** 	DDRD = 0xFF;
+  87               	,r24
+  89 0010 E1E3      	.LM3:
+  90 0012 F0E0      		ldi r24,lo8(1000)
+  91 0014 8FEF      		ldi r25,hi8(1000)
+  92 0016 8083      		sts (i)+1,r25
+  28:my_idea.c     **** 	
+  29:my_idea.c     **** 	i = k;
+  93               	,r24
+  94               		rjmp .L2
+  95 0018 88EE      	.L3:
+  97 001c 9093 0000 	.LM4:
+  98 0020 8093 0000 		lds r24,i
+  99 0024 00C0      		lds r25,(i)+1
+ 100               		sbiw r24,1
+  30:my_idea.c     **** 	while(i>0) i--;
+ 101               	+1,r25
+ 102               		sts i,r24
+ 103 0026 8091 0000 	.L2:
+ 104 002a 9091 0000 		lds r24,i
+ 105 002e 0197      		lds r25,(i)+1
+ 106 0030 9093 0000 		cp __zero_reg__,r24
+ 107 0034 8093 0000 		cpc __zero_reg__,r25
+ 108               		brlt .L3
+ 110 003c 9091 0000 	.LM5:
+ 111 0040 1816      		ldi r30,lo8(50)
+ 112 0042 1906      		ldi r31,hi8(50)
+ 113 0044 04F0      		ldi r24,lo8(48)
+  31:my_idea.c     **** 	
+  32:my_idea.c     **** 	
+  33:my_idea.c     **** 	PORTD = 0x30; //8-bit mode
+ 114               	tabn	68,0,34,.LM6-.LFBB1
+ 115               	.LM6:
+ 116 0046 E2E3      		ldi r30,lo8(56)
+ 117 0048 F0E0      		ldi r31,hi8(56)
+ 118 004a 80E3      		ldi r24,lo8(1)
+ 119 004c 8083      		st Z,r24
+  34:my_idea.c     **** 	PORTB = 0x01;
+ 120               	n	68,0,35,.LM7-.LFBB1
+ 121               	.LM7:
+ 122 004e E8E3      		ldi r30,lo8(56)
+ 123 0050 F0E0      		ldi r31,hi8(56)
+ 124 0052 81E0      		st Z,__zero_reg__
+  35:my_idea.c     **** 	PORTB = 0x00;
+ 126               		ldi r24,lo8(1000)
+ 127               		ldi r25,hi8(1000)
+ 128 0056 E8E3      		sts (i)+1,r25
+ 129 0058 F0E0      		sts i,r24
+ 130 005a 1082      		rjmp .L4
+  36:my_idea.c     **** 	
+  37:my_idea.c     **** 	i = k;
+ 132               	.LM9:
+ 133 005c 88EE      		lds r24,i
+ 134 005e 93E0      		lds r25,(i)+1
+ 135 0060 9093 0000 		sbiw r24,1
+ 136 0064 8093 0000 		sts (i)+1,r25
+ 137 0068 00C0      		sts i,r24
+ 138               	.L4:
+  38:my_idea.c     **** 	while(i>0) i--;
+ 139               	,i
+ 140               		lds r25,(i)+1
+ 141 006a 8091 0000 		cp __zero_reg__,r24
+ 142 006e 9091 0000 		cpc __zero_reg__,r25
+ 143 0072 0197      		brlt .L5
+ 145 0078 8093 0000 	.LM10:
+ 146               		ldi r30,lo8(50)
+ 147 007c 8091 0000 		ldi r31,hi8(50)
+ 148 0080 9091 0000 		ldi r24,lo8(15)
+ 149 0084 1816      		st Z,r24
+ 151 0088 04F0      	.LM11:
+  39:my_idea.c     **** 	
+  40:my_idea.c     **** 	PORTD = 0x0F; //turn on, cursor enable, blink
+ 152               	56)
+ 153               		ldi r31,hi8(56)
+ 154 008a E2E3      		ldi r24,lo8(1)
+ 155 008c F0E0      		st Z,r24
+ 157 0090 8083      	.LM12:
+  41:my_idea.c     **** 	PORTB = 0x01;
+ 158               	30,lo8(56)
+ 159               		ldi r31,hi8(56)
+ 160 0092 E8E3      		st Z,__zero_reg__
+ 162 0096 81E0      	.LM13:
+ 163 0098 8083      		ldi r24,lo8(1000)
+  42:my_idea.c     **** 	PORTB = 0x00;
+ 164               	25,hi8(1000)
+ 165               		sts (i)+1,r25
+ 166 009a E8E3      		sts i,r24
+ 167 009c F0E0      		rjmp .L6
+ 168 009e 1082      	.L7:
+  43:my_idea.c     **** 	
+  44:my_idea.c     **** 	i = k;
+ 169               	bn	68,0,45,.LM14-.LFBB1
+ 170               	.LM14:
+ 171 00a0 88EE      		lds r24,i
+ 172 00a2 93E0      		lds r25,(i)+1
+ 173 00a4 9093 0000 		sbiw r24,1
+ 174 00a8 8093 0000 		sts (i)+1,r25
+ 175 00ac 00C0      		sts i,r24
+ 176               	.L6:
+  45:my_idea.c     **** 	while(i>0) i--;
+ 177               	,i
+ 178               		lds r25,(i)+1
+ 179 00ae 8091 0000 		cp __zero_reg__,r24
+ 180 00b2 9091 0000 		cpc __zero_reg__,r25
+ 181 00b6 0197      		brlt .L7
+ 183 00bc 8093 0000 	.LM15:
+ 184               		ldi r30,lo8(50)
+ 185 00c0 8091 0000 		ldi r31,hi8(50)
+ 186 00c4 9091 0000 		ldi r24,lo8(1)
+ 187 00c8 1816      		st Z,r24
+ 189 00cc 04F0      	.LM16:
+  46:my_idea.c     **** 		
+  47:my_idea.c     **** 	PORTD = 0x01; //clear,
+ 190               	56)
+ 191               		ldi r31,hi8(56)
+ 192 00ce E2E3      		ldi r24,lo8(1)
+ 193 00d0 F0E0      		st Z,r24
+ 195 00d4 8083      	.LM17:
+  48:my_idea.c     **** 	PORTB = 0x01;
+ 196               	30,lo8(56)
+ 197               		ldi r31,hi8(56)
+ 198 00d6 E8E3      		st Z,__zero_reg__
+ 200 00da 81E0      	.LM18:
+ 201 00dc 8083      		ldi r24,lo8(1000)
+  49:my_idea.c     **** 	PORTB = 0x00;
+ 202               	25,hi8(1000)
+ 203               		sts (i)+1,r25
+ 204 00de E8E3      		sts i,r24
+ 205 00e0 F0E0      		rjmp .L8
+ 206 00e2 1082      	.L9:
+  50:my_idea.c     **** 	
+  51:my_idea.c     **** 
+  52:my_idea.c     **** 	i = k;
+ 207               	bn	68,0,53,.LM19-.LFBB1
+ 208               	.LM19:
+ 209 00e4 88EE      		lds r24,i
+ 210 00e6 93E0      		lds r25,(i)+1
+ 211 00e8 9093 0000 		sbiw r24,1
+ 212 00ec 8093 0000 		sts (i)+1,r25
+ 213 00f0 00C0      		sts i,r24
+ 214               	.L8:
+  53:my_idea.c     **** 	while(i>0) i--;
+ 215               	,i
+ 216               		lds r25,(i)+1
+ 217 00f2 8091 0000 		cp __zero_reg__,r24
+ 218 00f6 9091 0000 		cpc __zero_reg__,r25
+ 219 00fa 0197      		brlt .L9
+ 221 0100 8093 0000 	.LM20:
+ 222               		ldi r30,lo8(50)
+ 223 0104 8091 0000 		ldi r31,hi8(50)
+ 224 0108 9091 0000 		ldi r24,lo8(-128)
+ 225 010c 1816      		st Z,r24
+ 227 0110 04F0      	.LM21:
+  54:my_idea.c     **** 		
+  55:my_idea.c     **** 	PORTD = 0x80; //start address
+ 228               	56)
+ 229               		ldi r31,hi8(56)
+ 230 0112 E2E3      		ldi r24,lo8(1)
+ 231 0114 F0E0      		st Z,r24
+ 233 0118 8083      	.LM22:
+  56:my_idea.c     **** 	PORTB = 0x01;
+ 234               	30,lo8(56)
+ 235               		ldi r31,hi8(56)
+ 236 011a E8E3      		st Z,__zero_reg__
+ 238 011e 81E0      	.LM23:
+ 239 0120 8083      		ldi r24,lo8(1000)
+  57:my_idea.c     **** 	PORTB = 0x00;
+ 240               	25,hi8(1000)
+ 241               		sts (i)+1,r25
+ 242 0122 E8E3      		sts i,r24
+ 243 0124 F0E0      		rjmp .L10
+ 244 0126 1082      	.L11:
+  58:my_idea.c     **** 	
+  59:my_idea.c     **** 
+  60:my_idea.c     **** 	i = k;
+ 245               	bn	68,0,61,.LM24-.LFBB1
+ 246               	.LM24:
+ 247 0128 88EE      		lds r24,i
+ 248 012a 93E0      		lds r25,(i)+1
+ 249 012c 9093 0000 		sbiw r24,1
+ 250 0130 8093 0000 		sts (i)+1,r25
+ 251 0134 00C0      		sts i,r24
+ 252               	.L10:
+  61:my_idea.c     **** 	while(i>0) i--;
+ 253               	,i
+ 254               		lds r25,(i)+1
+ 255 0136 8091 0000 		cp __zero_reg__,r24
+ 256 013a 9091 0000 		cpc __zero_reg__,r25
+ 257 013e 0197      		brlt .L11
+ 259 0144 8093 0000 	.LM25:
+ 260               		ldi r30,lo8(56)
+ 261 0148 8091 0000 		ldi r31,hi8(56)
+ 262 014c 9091 0000 		ldi r24,lo8(5)
+ 263 0150 1816      		st Z,r24
+ 265 0154 04F0      	.LM26:
+  62:my_idea.c     **** 	
+  63:my_idea.c     **** 	PORTB = 0x05; //data selected	
+ 266               	50)
+ 267               		ldi r31,hi8(50)
+ 268 0156 E8E3      		ldi r24,lo8(65)
+ 269 0158 F0E0      		st Z,r24
+ 271 015c 8083      	.LM27:
+  64:my_idea.c     **** 	PORTD = 0x41;
+ 272               	g__,r25
+ 273               		brlt .L11
+ 275 0160 F0E0      	.LM25:
+ 276 0162 81E4      		ldi r30,lo8(56)
+ 277 0164 8083      		ldi r31,hi8(56)
+  65:my_idea.c     **** 	PORTB = 0x04;
+ 278               	:
+ 280 0166 E8E3      	.LM24:
+ 281 0168 F0E0      		lds r24,i
+ 282 016a 84E0      		lds r25,(i)+1
+ 283 016c 8083      		sbiw r24,1
+  66:my_idea.c     **** 	
+  67:my_idea.c     **** 	i = k;
+ 284               	i)+1,r25
+ 285               		sts i,r24
+ 286 016e 88EE      	.L10:
+ 287 0170 93E0      		lds r24,i
+ 288 0172 9093 0000 		lds r25,(i)+1
+ 289 0176 8093 0000 		cp __zero_reg__,r24
+ 290 017a 00C0      		cpc __zero_reg__,r25
+ 291               		brlt .L11
+  68:my_idea.c     **** 	while(i>0) i--;
+ 292               	68,0,63,.LM25-.LFBB1
+ 293               	.LM25:
+ 294 017c 8091 0000 		ldi r30,lo8(56)
+ 295 0180 9091 0000 		ldi r31,hi8(56)
+ 296 0184 0197      		ldi r24,lo8(5)
+ 297 0186 9093 0000 		st Z,r24
+ 299               	.LM26:
+ 300 018e 8091 0000 		ldi r30,lo8(50)
+ 301 0192 9091 0000 		ldi r31,hi8(50)
+ 302 0196 1816      		ldi r24,lo8(65)
+ 303 0198 1906      		st Z,r24
+  69:my_idea.c     **** 	
+  70:my_idea.c     **** 	PORTB = 0x05; //data selected	
+ 305               	_zero_reg__,r25
+ 306               		brlt .L11
+ 308 019e F0E0      	.LM25:
+ 309 01a0 85E0      		ldi r30,lo8(56)
+ 310 01a2 8083      		ldi r31,hi8(56)
+  71:my_idea.c     **** 	PORTD = 0x42;
+ 311               	:
+ 313 01a4 E2E3      	.LM24:
+ 314 01a6 F0E0      		lds r24,i
+ 315 01a8 82E4      		lds r25,(i)+1
+ 316 01aa 8083      		sbiw r24,1
+  72:my_idea.c     **** 	PORTB = 0x04;
+ 317               	i)+1,r25
+ 318               		sts i,r24
+ 319 01ac E8E3      	.L10:
+ 320 01ae F0E0      		lds r24,i
+ 321 01b0 84E0      		lds r25,(i)+1
+ 322 01b2 8083      		cp __zero_reg__,r24
+  73:my_idea.c     **** 
+  74:my_idea.c     **** 	i = k;
+ 323               	_zero_reg__,r25
+ 324               		brlt .L11
+ 326 01b6 93E0      	.LM25:
+ 327 01b8 9093 0000 		ldi r30,lo8(56)
+ 328 01bc 8093 0000 		ldi r31,hi8(56)
+ 329 01c0 00C0      		ldi r24,lo8(5)
+ 330               		st Z,r24
+  75:my_idea.c     **** 	while(i>0) i--;
+ 331               	B1
+ 332               	.LM24:
+ 333 01c2 8091 0000 		lds r24,i
+ 334 01c6 9091 0000 		lds r25,(i)+1
+ 335 01ca 0197      		sbiw r24,1
+ 336 01cc 9093 0000 		sts (i)+1,r25
+ 337 01d0 8093 0000 		sts i,r24
+ 338               	.L10:
+ 339 01d4 8091 0000 		lds r24,i
+ 340 01d8 9091 0000 		lds r25,(i)+1
+ 341 01dc 1816      		cp __zero_reg__,r24
+ 342 01de 1906      		cpc __zero_reg__,r25
+ 343 01e0 04F0      		brlt .L11
+  76:my_idea.c     **** 	
+  77:my_idea.c     **** 	
+  78:my_idea.c     **** 	PORTB = 0x05; //data selected	
+ 344               	63,.LM25-.LFBB1
+ 345               	.LM25:
+ 346 01e2 E8E3      		ldi r30,lo8(56)
+ 347 01e4 F0E0      		ldi r31,hi8(56)
+ 348 01e6 85E0      		ldi r24,lo8(5)
+ 349 01e8 8083      		st Z,r24
+  79:my_idea.c     **** 	PORTD = 0x43;
+ 350               	B1
+ 351               	.LM24:
+ 352 01ea E2E3      		lds r24,i
+ 353 01ec F0E0      		lds r25,(i)+1
+ 354 01ee 83E4      		sbiw r24,1
+ 355 01f0 8083      		sts (i)+1,r25
+  80:my_idea.c     **** 	PORTB = 0x04;
+ 356               	,r24
+ 357               	.L10:
+ 358 01f2 E8E3      		lds r24,i
+ 359 01f4 F0E0      		lds r25,(i)+1
+ 360 01f6 84E0      		cp __zero_reg__,r24
+ 361 01f8 8083      		cpc __zero_reg__,r25
+  81:my_idea.c     **** 	
+  82:my_idea.c     ****    i = k;
+ 362               	.L11
+ 364 01fa 88EE      	.LM25:
+ 365 01fc 93E0      		ldi r30,lo8(56)
+ 366 01fe 9093 0000 		ldi r31,hi8(56)
+ 367 0202 8093 0000 		ldi r24,lo8(5)
+ 368 0206 00C0      		st Z,r24
+  83:my_idea.c     **** 	while(i>0) i--;
+ 370               	(i)+1
+ 371               		sbiw r24,1
+ 372 0208 8091 0000 		sts (i)+1,r25
+ 373 020c 9091 0000 		sts i,r24
+ 374 0210 0197      	.L10:
+ 375 0212 9093 0000 		lds r24,i
+ 376 0216 8093 0000 		lds r25,(i)+1
+ 377               		cp __zero_reg__,r24
+ 378 021a 8091 0000 		cpc __zero_reg__,r25
+ 379 021e 9091 0000 		brlt .L11
+ 381 0224 1906      	.LM25:
+ 382 0226 04F0      		ldi r30,lo8(56)
+  84:my_idea.c     **** 	
+  85:my_idea.c     **** 	PORTD = 0xC0; //start address
+ 383               	56)
+ 384               		ldi r24,lo8(5)
+ 385 0228 E2E3      		st Z,r24
+ 387 022c 80EC      	.LM26:
+ 388 022e 8083      		ldi r30,lo8(50)
+  86:my_idea.c     **** 	PORTB = 0x01;
+ 389               	+1,r25
+ 390               		sts i,r24
+ 391 0230 E8E3      	.L10:
+ 392 0232 F0E0      		lds r24,i
+ 393 0234 81E0      		lds r25,(i)+1
+ 394 0236 8083      		cp __zero_reg__,r24
+  87:my_idea.c     **** 	PORTB = 0x00;
+ 395               	_zero_reg__,r25
+ 396               		brlt .L11
+ 398 023a F0E0      	.LM25:
+ 399 023c 1082      		ldi r30,lo8(56)
+  88:my_idea.c     **** 	
+  89:my_idea.c     **** 		i = k;
+ 400               	24
+ 401               		rjmp .L10
+ 402 023e 88EE      	.L11:
+ 404 0242 9093 0000 	.LM24:
+ 405 0246 8093 0000 		lds r24,i
+ 406 024a 00C0      		lds r25,(i)+1
+ 407               		sbiw r24,1
+  90:my_idea.c     **** 	while(i>0) i--;
+ 408               	+1,r25
+ 409               		sts i,r24
+ 410 024c 8091 0000 	.L10:
+ 411 0250 9091 0000 		lds r24,i
+ 412 0254 0197      		lds r25,(i)+1
+ 413 0256 9093 0000 		cp __zero_reg__,r24
+ 414 025a 8093 0000 		cpc __zero_reg__,r25
+ 415               		brlt .L11
+ 417 0262 9091 0000 	.LM25:
+ 418 0266 1816      		ldi r30,lo8(56)
+ 419 0268 1906      		ldi r31,hi8(56)
+ 420 026a 04F0      		ldi r24,lo8(5)
+  91:my_idea.c     **** 	
+  92:my_idea.c     **** 	PORTB = 0x05; //data selected	
+ 421               	tabn	68,0,64,.LM26-.LFBB1
+ 422               	.LM26:
+ 423 026c E8E3      		ldi r30,lo8(50)
+ 424 026e F0E0      		ldi r31,hi8(50)
+ 425 0270 85E0      		ldi r24,lo8(65)
+ 426 0272 8083      		st Z,r24
+  93:my_idea.c     **** 	PORTD = 0x44;
+ 427               	+1
+ 428               		cp __zero_reg__,r24
+ 429 0274 E2E3      		cpc __zero_reg__,r25
+ 430 0276 F0E0      		brlt .L11
+ 432 027a 8083      	.LM25:
+  94:my_idea.c     **** 	PORTB = 0x04;
+ 433               	30,lo8(56)
+ 434               		ldi r31,hi8(56)
+ 435 027c E8E3      		ldi r24,lo8(5)
+ 436 027e F0E0      		st Z,r24
+ 438 0282 8083      	.LM26:
+  95:my_idea.c     **** 	
+  96:my_idea.c     **** 	i = k;
+ 439               	biw r24,1
+ 440               		sts (i)+1,r25
+ 441 0284 88EE      		sts i,r24
+ 442 0286 93E0      	.L10:
+ 443 0288 9093 0000 		lds r24,i
+ 444 028c 8093 0000 		lds r25,(i)+1
+ 445 0290 00C0      		cp __zero_reg__,r24
+ 446               		cpc __zero_reg__,r25
+  97:my_idea.c     **** 	while(i>0) i--;
+ 447               	11
+ 449 0292 8091 0000 	.LM25:
+ 450 0296 9091 0000 		ldi r30,lo8(56)
+ 451 029a 0197      		ldi r31,hi8(56)
+ 452 029c 9093 0000 		ldi r24,lo8(5)
+ 453 02a0 8093 0000 		st Z,r24
+ 455 02a4 8091 0000 	.LM26:
+ 456 02a8 9091 0000 		ldi r30,lo8(50)
+ 457 02ac 1816      		ldi r31,hi8(50)
+ 458 02ae 1906      		ldi r24,lo8(65)
+ 459 02b0 04F0      		st Z,r24
+  98:my_idea.c     **** 	
+  99:my_idea.c     **** 	PORTB = 0x05; //data selected	
+ 460               	+1
+ 461               		cp __zero_reg__,r24
+ 462 02b2 E8E3      		cpc __zero_reg__,r25
+ 463 02b4 F0E0      		brlt .L11
+ 465 02b8 8083      	.LM25:
+ 100:my_idea.c     **** 	PORTD = 0x45;
+ 466               	30,lo8(56)
+ 467               		ldi r31,hi8(56)
+ 468 02ba E2E3      		ldi r24,lo8(5)
+ 469 02bc F0E0      		st Z,r24
+ 471 02c0 8083      	.LM26:
+ 101:my_idea.c     **** 	PORTB = 0x04;
+ 472               	biw r24,1
+ 473               		sts (i)+1,r25
+ 474 02c2 E8E3      		sts i,r24
+ 475 02c4 F0E0      	.L10:
+ 476 02c6 84E0      		lds r24,i
+ 477 02c8 8083      		lds r25,(i)+1
+ 102:my_idea.c     **** 
+ 103:my_idea.c     **** 	i = k;
+ 478               	zero_reg__,r24
+ 479               		cpc __zero_reg__,r25
+ 480 02ca 88EE      		brlt .L11
+ 482 02ce 9093 0000 	.LM25:
+ 483 02d2 8093 0000 		ldi r30,lo8(56)
+ 484 02d6 00C0      		ldi r31,hi8(56)
+ 485               		ldi r24,lo8(5)
+ 104:my_idea.c     **** 	while(i>0) i--;
+ 486               	,.LM24-.LFBB1
+ 487               	.LM24:
+ 488 02d8 8091 0000 		lds r24,i
+ 489 02dc 9091 0000 		lds r25,(i)+1
+ 490 02e0 0197      		sbiw r24,1
+ 491 02e2 9093 0000 		sts (i)+1,r25
+ 492 02e6 8093 0000 		sts i,r24
+ 493               	.L10:
+ 494 02ea 8091 0000 		lds r24,i
+ 495 02ee 9091 0000 		lds r25,(i)+1
+ 496 02f2 1816      		cp __zero_reg__,r24
+ 497 02f4 1906      		cpc __zero_reg__,r25
+ 498 02f6 04F0      		brlt .L11
+ 105:my_idea.c     **** 	
+ 106:my_idea.c     **** 	
+ 107:my_idea.c     **** 	PORTB = 0x05; //data selected	
+ 499               	63,.LM25-.LFBB1
+ 500               	.LM25:
+ 501 02f8 E8E3      		ldi r30,lo8(56)
+ 502 02fa F0E0      		ldi r31,hi8(56)
+ 503 02fc 85E0      		ldi r24,lo8(5)
+ 504 02fe 8083      		st Z,r24
+ 108:my_idea.c     **** 	PORTD = 0x46;
+ 505               	B1
+ 506               	.LM24:
+ 507 0300 E2E3      		lds r24,i
+ 508 0302 F0E0      		lds r25,(i)+1
+ 509 0304 86E4      		sbiw r24,1
+ 510 0306 8083      		sts (i)+1,r25
+ 109:my_idea.c     **** 	PORTB = 0x04;
+ 511               	,r24
+ 512               	.L10:
+ 513 0308 E8E3      		lds r24,i
+ 514 030a F0E0      		lds r25,(i)+1
+ 515 030c 84E0      		cp __zero_reg__,r24
+ 516 030e 8083      		cpc __zero_reg__,r25
+ 517               		brlt .L11
+ 519               	.LM25:
+ 520               		ldi r30,lo8(56)
+ 521               		ldi r31,hi8(56)
+ 522               		ldi r24,lo8(5)
+ 523               		st Z,r24
+ 525               	.LM26:
+ 526               		ldi r30,lo8(50)
+ 527               		ldi r31,hi8(50)
+DEFINED SYMBOLS
+                            *ABS*:00000000 my_idea.c
+D:\DOCUME~1\student\LOCALS~1\Temp/ccnAGVJQ.s:2      *ABS*:0000003f __SREG__
+D:\DOCUME~1\student\LOCALS~1\Temp/ccnAGVJQ.s:3      *ABS*:0000003e __SP_H__
+D:\DOCUME~1\student\LOCALS~1\Temp/ccnAGVJQ.s:4      *ABS*:0000003d __SP_L__
+D:\DOCUME~1\student\LOCALS~1\Temp/ccnAGVJQ.s:5      *ABS*:00000034 __CCP__
+D:\DOCUME~1\student\LOCALS~1\Temp/ccnAGVJQ.s:6      *ABS*:00000000 __tmp_reg__
+D:\DOCUME~1\student\LOCALS~1\Temp/ccnAGVJQ.s:7      *ABS*:00000001 __zero_reg__
+D:\DOCUME~1\student\LOCALS~1\Temp/ccnAGVJQ.s:71     .text:00000000 main
+                            *COM*:00000002 i
+                            *COM*:00000002 My_global
+
+UNDEFINED SYMBOLS
+__do_clear_bss
